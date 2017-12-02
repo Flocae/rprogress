@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<ArrayOfPatient xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Patient>
+    <Nom>NOM</Nom>
+    <Prenom>PRENOM</Prenom>
+    <DateConsult>2013-09-21T23:10:38</DateConsult>
+    <Notes />
+    <QuestionnairesOK>true</QuestionnairesOK>
+    <AnamneseOK>true</AnamneseOK>
+    <ComportementOK>true</ComportementOK>
+    <CotationOK>true</CotationOK>
+    <WISCaTeachOK>true</WISCaTeachOK>
+    <TEACHaReyOK>true</TEACHaReyOK>
+    <CclConseilsOK>true</CclConseilsOK>
+    <AmenagementsOK>true</AmenagementsOK>
+    <CRparentsOK>true</CRparentsOK>
+    <CRproOK>true</CRproOK>
+    <PercentAvancement>100</PercentAvancement>
+  </Patient>
+</ArrayOfPatient>

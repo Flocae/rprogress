@@ -1,0 +1,41 @@
+@namespace ns "http://flex.apache.org/experimental/ns";
+@namespace s "library://ns.adobe.com/flex/spark";
+@namespace mx "library://ns.adobe.com/flex/mx";
+@namespace components "flatSpark.components.*";
+
+@font-face {
+    src:url("assets/fonts/Lato_Regular.otf");
+    fontFamily: Lato_Regular;
+    embedAsCFF: true;
+}
+/* need to embed the font twice with embedAsCFF: false for advanced datagrid */
+@font-face {
+    src:url("assets/fonts/Lato_Regular.otf");
+    fontFamily: Lato_Regular_DG;
+    embedAsCFF: false;
+}
+.h2Form{
+    fontFamily : Lato_Regular;
+    fontSize:18;
+    verticalAlign: middle;
+    textAlign:justify;
+}
+.pForm{
+    fontFamily : Lato_Regular;
+    fontSize:14;
+    verticalAlign: middle;
+    textAlign:justify;
+}
+ns|ProgressBar{
+    skinClass: ClassReference("flatspark.skins.ProgressBarSkin");
+}
+ns|Alert {
+    skinClass:ClassReference("flatspark.skins.AlertSkin");
+}
+
+s|Panel{
+    skinClass:ClassReference("flatspark.skins.PanelSkin");
+}
+s|CheckBox {
+    skinClass: ClassReference("flatspark.skins.CheckBoxSkin");
+}

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Panel xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		 xmlns:s="library://ns.adobe.com/flex/spark" 
+		 xmlns:mx="library://ns.adobe.com/flex/mx" width="400" height="300"
+		 creationComplete="CalendarPanelComplete(event)" xmlns:components="flatspark.components.*"
+		 >
+	<fx:Script>
+		<![CDATA[
+		import db.StaticVars;
+
+		import flatspark.utils.AwesomeUtils;
+
+		import mx.events.CalendarLayoutChangeEvent;
+		import mx.events.FlexEvent;
+		import mx.managers.PopUpManager;
+
+		protected function CalendarPanelComplete(event:FlexEvent):void {
+			PopUpManager.centerPopUp(this);
+			this.width = DateChooserCalendarWindow.width;//DateChooserCalendarWindow.width;
+			this.height = DateChooserCalendarWindow.height + 40;
+		}
+
+		protected function closePanel(event:MouseEvent):void {
+			PopUpManager.removePopUp(this);
+		}
+
+		protected function recupDate(event:CalendarLayoutChangeEvent):void {
+			StaticVars.DATE = DateChooserCalendarWindow.selectedDate;
+			PopUpManager.removePopUp(this);
+		}
+		]]>
+	</fx:Script>
+	<s:VGroup width="100%" height="100%" horizontalAlign="center">
+		<mx:DateChooser id="DateChooserCalendarWindow" styleName="dateChooseStyle" change="recupDate(event)"
+						yearNavigationEnabled="true" borderColor="white"
+						/>
+		<s:HGroup width="100%" horizontalAlign="center">
+			<!--<s:Button label="Annuler"  alpha="0.5"/>-->
+			<s:HGroup width="100%" horizontalAlign="left">
+				<s:Label fontFamily="FontAwesome" text="{AwesomeUtils.fa_arrow_circle_left}"
+						 click="closePanel(event)"
+						 fontSize="20" useHandCursor="true" buttonMode="true"/>
+			</s:HGroup>
+		</s:HGroup>
+		
+	</s:VGroup>
+	
+</s:Panel>

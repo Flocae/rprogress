@@ -1,0 +1,105 @@
+<?xml version="1.0"?>
+<s:Panel xmlns:fx="http://ns.adobe.com/mxml/2009"
+         xmlns:s="library://ns.adobe.com/flex/spark"
+         xmlns:mx="library://ns.adobe.com/flex/mx" width="400"
+         height="400"
+         creationComplete="PanelCreationComplete(event)" xmlns:components="flatspark.components.*"
+         title="Paramètres">
+    <fx:Script>
+		<![CDATA[
+        import com.caetta.utils.MyEvent;
+
+        import db.StaticVars;
+
+        import flatspark.enums.BrandColorEnum;
+        import flatspark.enums.ButtonSizeEnum;
+        import flatspark.utils.AwesomeUtils;
+
+        import mx.events.FlexEvent;
+        import mx.managers.PopUpManager;
+        // App data
+        private var _appData:SharedObject;
+
+        protected function PanelCreationComplete(event:FlexEvent):void {
+            PopUpManager.centerPopUp(this);
+            // set task text
+            for (var i:int=1;i<=10;i++)
+            {
+                this["task"+i+"TextInput"].text=StaticVars["TASK"+i];
+
+            }
+            // keyboard eventLIst
+            this.addEventListener(KeyboardEvent.KEY_DOWN, keyHandler);
+        }
+
+        // UI function
+        private function validate(e:Event):void {
+            validateDATA();
+            PopUpManager.removePopUp(this);
+        }
+
+        private function keyHandler(event:KeyboardEvent):void {
+            if (event.keyCode==13)// press enter
+            {
+                validateDATA();
+                PopUpManager.removePopUp(this);
+
+            }
+            else if(event.keyCode==27)// ESC
+            {
+                PopUpManager.removePopUp(this);
+            }
+        }
+        private function cancel(e:Event):void {
+            PopUpManager.removePopUp(this);
+        }
+
+        // DATA
+        private function validateDATA():void{
+            _appData=SharedObject.getLocal("appData");
+            for (var i:int=1;i<=10;i++)
+            {
+                _appData.data["task"+i] = StaticVars["TASK"+i]=this["task"+i+"TextInput"].text;
+                _appData.flush(); // Save local preferences
+            }
+            // custom bubling event
+            dispatchEvent(new MyEvent(MyEvent.GOT_RESULT,"updateTODOLIST",false));
+            PopUpManager.removePopUp(this);
+        }
+
+        ]]>
+	</fx:Script>
+    <fx:Metadata>
+        [Event(name=MyEvent.GOT_RESULT, type="com.caetta.utils.MyEvent")]
+    </fx:Metadata>
+    <s:VGroup padding="20" width="100%" height="100%">
+        <s:Label text="Liste des tâches" styleName="h2Form"/>
+        <s:Spacer height="10"/>
+        <s:HGroup >
+            <s:VGroup>
+                <components:TextInputIcon id="task1TextInput"  width="160" />
+                <components:TextInputIcon id="task2TextInput"  width="160" />
+                <components:TextInputIcon id="task3TextInput"  width="160" />
+                <components:TextInputIcon id="task4TextInput"  width="160" />
+                <components:TextInputIcon id="task5TextInput"  width="160" />
+            </s:VGroup>
+            <s:VGroup>
+                <components:TextInputIcon id="task6TextInput"  width="160" />
+                <components:TextInputIcon id="task7TextInput"  width="160" />
+                <components:TextInputIcon id="task8TextInput"  width="160" />
+                <components:TextInputIcon id="task9TextInput"  width="160" />
+                <components:TextInputIcon id="task10TextInput"  width="160" />
+            </s:VGroup>
+
+        </s:HGroup>
+        <s:Spacer height="100%"/>
+        <s:HGroup horizontalAlign="right" width="100%" >
+            <components:ButtonIcon label="Valider" height="{ButtonSizeEnum.Normal}" brand="{BrandColorEnum.Primary}"
+                                   iconFont="{AwesomeUtils.fa_check}" click="validate(event)"/>
+            <components:ButtonIcon label="Annuler" height="{ButtonSizeEnum.Normal}" brand="{BrandColorEnum.Default}"
+                                   iconFont="{AwesomeUtils.fa_close}" click="cancel(event)"/>
+        </s:HGroup>
+
+    </s:VGroup>
+
+</s:Panel>

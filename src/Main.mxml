@@ -1,0 +1,179 @@
+<?xml version="1.0"?>
+<s:WindowedApplication xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark"
+                       xmlns:components="flatspark.components.*" xmlns:ns="http://flex.apache.org/experimental/ns"
+                       xmlns:mx="library://ns.adobe.com/flex/mx"
+                       creationComplete="thisCreationComplete(event)"
+                       width="900" height="740" minHeight="200" minWidth="200"
+
+>
+    <!--Import Script-->
+    <fx:Script source="script/MainScript.as"/>
+    <fx:Metadata>
+        [Event(name=MyEvent.GOT_RESULT, type="com.caetta.utils.MyEvent")]
+    </fx:Metadata>
+    <!--Import Style-->
+    <fx:Style source="MyStyle.css"/>
+    <fx:Declarations>
+        <mx:DateFormatter id="formDate" formatString="DD/MM/YYYY"/>
+    </fx:Declarations>
+    <s:Scroller width="100%" height="100%">
+        <s:HGroup width="100%" height="100%" padding="20" styleName="pForm">
+            <s:VGroup id="firstColumn" width="66%" height="100%">
+                <s:HGroup verticalAlign="middle" width="100%">
+                    <s:Label fontFamily="FontAwesome" text="{AwesomeUtils.fa_info_circle}" fontSize="30" />
+                    <s:Label text="Informations générales" styleName="h2Form"/>
+
+                </s:HGroup>
+
+                <s:VGroup id="geneInfo" width="100%">
+                    <s:Line width="100%">
+                        <s:stroke>
+                            <s:SolidColorStroke color="#000000" weight="1" caps="square" alpha="0.5" />
+                        </s:stroke>
+                    </s:Line>
+                    <s:HGroup width="100%" paddingLeft="5" paddingRight="5">
+                        <s:Label id="nRemaining" toolTip="Nombre de CR qui ne sont pas marqués à 100%" color="0xb30059"/>
+                        <s:Spacer width="100%"/>
+                        <s:Label id="globalProgress" toolTip="Moyenne des % des CR non terminés"/>
+                        <s:Spacer width="100%"/>
+                        <s:Label id="toComeUpLabel" toolTip="Sujets enregistrés après la date du jour" color="0x666699"/>
+                    </s:HGroup>
+                    <s:Line width="100%">
+                        <s:stroke>
+                            <s:SolidColorStroke color="#000000" weight="1" caps="square" alpha="0.1" />
+                        </s:stroke>
+                    </s:Line>
+                    <s:Label id="total"  width="100%" textAlign="center" fontWeight="bold"/>
+                </s:VGroup>
+                <s:Line width="100%">
+                    <s:stroke>
+                        <s:SolidColorStroke color="#000000" weight="1" caps="square" alpha="0.5" />
+                    </s:stroke>
+                </s:Line>
+                <s:HGroup id="buttons" width="100%">
+                    <components:ButtonIcon label="Nouveau" height="{ButtonSizeEnum.Normal}" brand="{BrandColorEnum.Primary}"
+                                           iconFont="{AwesomeUtils.fa_user}" click="createNew(event)"/>
+                    <components:ButtonIcon label="Editer" id="editButton" height="{ButtonSizeEnum.Normal}" brand="{BrandColorEnum.Warning}"
+                                           iconFont="{AwesomeUtils.fa_edit}" enabled="false" click="edit(event)"/>
+                    <s:Spacer width="100%"/>
+                    <components:ButtonIcon  height="{ButtonSizeEnum.ExtraSmall}" id="deleteButton" brand="{BrandColorEnum.Danger}"
+                                            iconFont="{AwesomeUtils.fa_trash}" enabled="false" click="deleteFunct(event)"/>
+
+                    <!--<components:ButtonIcon  height="{ButtonSizeEnum.ExtraSmall}" brand="{BrandColorEnum.Default}"
+                                             iconFont="{AwesomeUtils.fa_file}" enabled="true" click="importXML(event)" />-->
+
+                </s:HGroup>
+                <s:Spacer height="10"/>
+                <s:VGroup id="datagrid" width="100%" height="100%">
+                    <s:Label text="Base de données" styleName="h2Form"/>
+                    <!--<s:DataGrid width="100%" height="100%" id="dataGrid" dataProvider="{_datagridAC}" sortChange="changeSort(event)"
+                                selectionChange="onSelectionChanged(event)" doubleClick="edit(event)" doubleClickEnabled="true"
+                                contentBackgroundColor="0xf8f8ff" chromeColor="white" useHandCursor="true"
+                                rollOverColor="0x08BD9E" selectionColor="0x08BD9E" caretColor="0x08BD9E"
+                    >
+                        <s:columns>
+
+                            <s:ArrayList>
+                                <s:GridColumn dataField="lastName" headerText="Nom"  />
+                                <s:GridColumn dataField="firstName" headerText="Prénom"/>
+                                <s:GridColumn dataField="date" headerText="Date de consultation" labelFunction="formatDate"/>
+                                <s:GridColumn dataField="progress" headerText="Avancement (%)"/>
+                                <s:GridColumn dataField="ID" headerText="id" visible="false"/>
+                            </s:ArrayList>
+                        </s:columns>
+                    </s:DataGrid>-->
+                    <mx:AdvancedDataGrid  width="100%" height="100%" id="dataGrid" dataProvider="{_datagridAC}"
+                                          doubleClickEnabled="true" doubleClick="edit(event)"
+                                          contentBackgroundColor="0xf8f8ff" allowMultipleSelection="false"
+                                          rollOverColor="0x08BD9E" selectionColor="0x08BD9E"
+                                          change="onSelectionChanged(event)"
+                                          fontFamily="Lato_Regular_DG"
+                                          styleFunction="DatagridStyleFunction"
+                    >
+
+                        <mx:columns>
+                            <mx:AdvancedDataGridColumn dataField="lastName" headerText="Nom"  />
+                            <mx:AdvancedDataGridColumn dataField="firstName" headerText="Prénom"/>
+                            <mx:AdvancedDataGridColumn dataField="date" headerText="Date de RDV" labelFunction="formatDate"/>
+                            <mx:AdvancedDataGridColumn dataField="progress" headerText="Progression (%)"/>
+                            <mx:AdvancedDataGridColumn dataField="ID" headerText="id" visible="false"/>
+                        </mx:columns>
+                    </mx:AdvancedDataGrid>
+
+
+
+
+                </s:VGroup>
+            </s:VGroup>
+            <s:Spacer width="10"/>
+            <s:VGroup id="secondColumn" width="34%" height="100%">
+                <s:HGroup verticalAlign="middle" width="100%">
+                    <s:Label fontFamily="FontAwesome" text="{AwesomeUtils.fa_user_circle_o}" fontSize="30" />
+                    <s:Label text="Patient" styleName="h2Form"/>
+                    <s:Spacer width="100%"/>
+                    <s:Label fontFamily="FontAwesome" text="{AwesomeUtils.fa_question_circle}" fontSize="12" click="about(event)" buttonMode="true" useHandCursor="true" height="100%" verticalAlign="top"/>
+                </s:HGroup>
+                <s:Line width="100%">
+                    <s:stroke>
+                        <s:SolidColorStroke color="#000000" weight="1" caps="square" alpha="0.5" />
+                    </s:stroke>
+                </s:Line>
+                <s:VGroup id="userInfo" width="100%">
+                    <s:Spacer height="10"/>
+                    <s:Label id="userName" fontWeight="bold" styleName="h2Form"/>
+                    <s:Spacer height="10"/>
+                    <s:Label text="Etat d'avancement du CR :"/>
+                    <ns:ProgressBar
+                            id="progressBar"
+                            width="100%"
+                            totalProgress="100"
+                            currentProgress="0"
+                            displayPercents="true"
+                            direction="left"/>
+                    <s:Spacer height="10"/>
+                    <s:HGroup width="100%" verticalAlign="middle">
+                        <s:Label text="Tâches :"/>
+                        <s:Spacer width="100%"/>
+                        <components:ButtonIcon  height="{ButtonSizeEnum.ExtraSmall}" brand="{BrandColorEnum.Default}"
+                                                iconFont="{AwesomeUtils.fa_cog}" enabled="true" click="openParams(event)"/>
+                    </s:HGroup>
+                    <s:Spacer height="5"/>
+                    <s:VGroup paddingLeft="5" id="toDoList">
+                        <s:Label id="t1"/>
+                        <s:Label id="t2"/>
+                        <s:Label id="t3"/>
+                        <s:Label id="t4"/>
+                        <s:Label id="t5"/>
+                        <s:Label id="t6"/>
+                        <s:Label id="t7"/>
+                        <s:Label id="t8"/>
+                        <s:Label id="t9"/>
+                        <s:Label id="t10"/>
+                    </s:VGroup>
+                    <s:Spacer height="5"/>
+                    <s:Label text="Notes : "/>
+                    <s:TextArea height="100%" width="100%" editable="false" id="textAreaNotes"/>
+                    <s:Spacer height="5"/>
+                    <s:Line width="100%">
+                        <s:stroke>
+                            <s:SolidColorStroke color="#000000" weight="1" caps="square" alpha="0.5" />
+                        </s:stroke>
+                    </s:Line>
+                    <s:HGroup width="100%" horizontalAlign="center">
+                        <components:ButtonIcon  height="{ButtonSizeEnum.Small}" brand="{BrandColorEnum.Default}"
+                                                iconFont="{AwesomeUtils.fa_desktop}" enabled="true" click="utils(event)" label="Utilitaires"/>
+                    </s:HGroup>
+
+                    <s:Spacer height="5"/>
+
+                </s:VGroup>
+            </s:VGroup>
+
+        </s:HGroup>
+
+    </s:Scroller>
+
+
+
+
+</s:WindowedApplication>

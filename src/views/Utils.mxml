@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+<mx:Panel xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx"
+          xmlns:s="library://ns.adobe.com/flex/spark" xmlns:components="flatspark.components.*"
+          title="Utilitaires"
+          creationComplete="PanelCreationComplete(event)">
+    <fx:Script>
+        <![CDATA[
+        import flatspark.enums.BrandColorEnum;
+        import flatspark.enums.ButtonSizeEnum;
+        import flatspark.utils.AwesomeUtils;
+
+        import mx.events.FlexEvent;
+        import mx.managers.PopUpManager;
+
+        protected function PanelCreationComplete(event:FlexEvent):void {
+            PopUpManager.centerPopUp(this);
+        }
+        private function okFunction(e:Event):void {
+            PopUpManager.removePopUp(this);
+        }
+         ]]>
+    </fx:Script>
+    <s:VGroup width="100%" height="100%" padding="20" styleName="pForm" verticalAlign="middle">
+        <s:Label text="NON DISPONIBLES POUR L'INSTANT" color="red" />
+        <s:HGroup>
+            <s:Label fontFamily="FontAwesome" text="{AwesomeUtils.fa_th_list}" fontSize="20"  useHandCursor="true" height="100%" color="0x666699"/>
+            <s:Label text="TODO list"/>
+        </s:HGroup>
+        <s:HGroup>
+            <s:Label fontFamily="FontAwesome" text="{AwesomeUtils.fa_clock_o}" fontSize="20"  useHandCursor="true" height="100%" color="0x666699"/>
+            <s:Label text="Pomodoro"/>
+        </s:HGroup>
+        <s:HGroup>
+            <s:Label fontFamily="FontAwesome" text="{AwesomeUtils.fa_fighter_jet}" fontSize="20"  useHandCursor="true" height="100%" color="0x666699"/>
+            <s:Label text="Chronomètre"/>
+        </s:HGroup>
+        <s:HGroup width="100%" horizontalAlign="right">
+            <components:ButtonIcon  label="Retour" height="{ButtonSizeEnum.ExtraSmall}" id="deleteButton" brand="{BrandColorEnum.Default}" click="okFunction(event)" />
+        </s:HGroup>
+
+
+    </s:VGroup>
+
+</mx:Panel>

@@ -1,0 +1,71 @@
+<?xml version="1.0"?>
+<mx:Panel xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx"
+          xmlns:s="library://ns.adobe.com/flex/spark" xmlns:components="flatspark.components.*"
+          title="About"
+          creationComplete="PanelCreationComplete(event)"
+>
+    <fx:Script>
+        <![CDATA[
+        import flatspark.enums.BrandColorEnum;
+        import flatspark.enums.ButtonSizeEnum;
+        import flatspark.utils.AwesomeUtils;
+
+        import mx.events.FlexEvent;
+        import mx.managers.PopUpManager;
+
+        protected function PanelCreationComplete(event:FlexEvent):void {
+            PopUpManager.centerPopUp(this);
+        }
+        private function okFunction(e:Event):void {
+            PopUpManager.removePopUp(this);
+        }
+        private function navigateToMyWebsite(event:Event):void
+        {
+            trace("jlkjlkjjlk")
+            var urlRequest:URLRequest = new URLRequest("http://www.florentcaetta.fr/");
+            //To open in a new tab
+            navigateToURL(urlRequest)
+        }
+        private function navigateToMyGitHub(event:Event):void
+        {
+            var urlRequest:URLRequest = new URLRequest("https://github.com/Flocae");
+            //To open in a new tab
+            navigateToURL(urlRequest)
+        }
+         ]]>
+    </fx:Script>
+
+    <s:VGroup width="100%" height="100%" padding="20" styleName="pForm">
+        <s:HGroup verticalAlign="middle">
+            <s:Image source="assets/icons/icon-48.png"/>
+            <s:Spacer width="5"/>
+            <s:VGroup>
+                <s:Label text="R-Progress is a free and open-source software (GPL license)."/>
+                <s:HGroup verticalAlign="middle">
+                    <s:Label text="Source code can be found here :"/>
+                    <s:Label fontFamily="FontAwesome" text="{AwesomeUtils.fa_github}" fontSize="20" buttonMode="true" useHandCursor="true" height="100%" color="0x666699" click="navigateToMyGitHub(event)"/>
+                </s:HGroup>
+            </s:VGroup>
+        </s:HGroup>
+        <s:Spacer height="5"/>
+        <s:Line width="100%">
+            <s:stroke>
+                <s:SolidColorStroke color="#000000" weight="1" caps="square" alpha="0.5" />
+            </s:stroke>
+        </s:Line>
+        <s:Spacer height="5"/>
+        <s:VGroup verticalAlign="middle" width="100%" horizontalAlign="center">
+            <s:Label text="Author : Florent Caetta"/>
+            <s:Label fontFamily="FontAwesome" text="{AwesomeUtils.fa_globe}" fontSize="20"  buttonMode="true" useHandCursor="true" height="100%" color="0x666699" click="navigateToMyWebsite(event)"/>
+            <s:Label text="Please feel free to contact me for further questions"/>
+
+            <s:Spacer height="10"/>
+
+            <components:ButtonIcon  label="OK" height="{ButtonSizeEnum.ExtraSmall}" id="deleteButton" brand="{BrandColorEnum.Default}" click="okFunction(event)" />
+        </s:VGroup>
+
+    </s:VGroup>
+
+
+
+</mx:Panel>

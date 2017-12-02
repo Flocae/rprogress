@@ -1,0 +1,98 @@
+<?xml version="1.0"?>
+<s:Panel xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark"
+         xmlns:components="flatspark.components.*" xmlns:mx="library://ns.adobe.com/flex/mx"
+         xmlns:ns="http://flex.apache.org/experimental/ns"
+         creationComplete="thisCreationComplete(event)"
+         title="Titre "
+         width="700"
+         height="400"
+>
+   <!-- Import User form script-->
+    <fx:Script source="../script/UserFormScript.as"/>
+    <fx:Metadata>
+        [Event(name=MyEvent.GOT_RESULT, type="com.caetta.utils.MyEvent")]
+    </fx:Metadata>
+    <fx:Declarations>
+        <mx:DateFormatter id="formatDate" formatString="DD/MM/YYYY"/>
+    </fx:Declarations>
+
+
+    <s:VGroup width="100%" height="100%" padding="20" styleName="pForm" verticalAlign="middle">
+        <s:HGroup height="{ButtonSizeEnum.Normal}" width="100%">
+            <s:Label text="Nom : " height="100%" verticalAlign="middle"/>
+            <components:TextInputIcon id="lastNameTI"  width="130" enter="firstNameTI.setFocus()" iconFont="{AwesomeUtils.fa_user}"
+            />
+            <s:Label text="Prénom : " height="100%" verticalAlign="middle"/>
+            <components:TextInputIcon id="firstNameTI"  width="130" iconFont="{AwesomeUtils.fa_user}"/>
+            <s:Label text="Date de la consultation : " height="100%" id="dateConsult" verticalAlign="middle"/>
+            <components:TextInputIcon id="DateConsultTextInput"  width="130" editable="false"
+                                      click="openCalendar(event)"
+                                      iconFont="{AwesomeUtils.fa_calendar}" useHandCursor="true" buttonMode="true"
+                                      selectable="false"
+                                      text="{formatDate.format(StaticVars.DATE)}"
+            />
+        </s:HGroup>
+        <s:Spacer height="10"/>
+        <s:Line width="100%">
+            <s:stroke>
+                <s:SolidColorStroke color="#000000" weight="1" caps="square" alpha="0.5" />
+            </s:stroke>
+        </s:Line>
+        <s:Spacer height="5"/>
+        <s:Label text="Tâches" styleName="h2Form"/>
+        <s:Spacer height="5"/>
+        <s:HGroup height="100%" width="100%">
+            <s:VGroup width="33%" click="setProgressBar()">
+                <s:CheckBox label="Questionnaires" id="task1CB"/>
+                <s:CheckBox label="Anamnèse" id="task2CB"/>
+                <s:CheckBox label="Comportement" id="task3CB"/>
+                <s:CheckBox label="Cotation" id="task4CB"/>
+                <s:CheckBox label="De WISC à TEA-ch" id="task5CB"/>
+            </s:VGroup>
+            <s:VGroup width="33%" click="setProgressBar()">
+                <s:CheckBox label="De TEA-ch à Rey" id="task6CB"/>
+                <s:CheckBox label="Conclusion" id="task7CB"/>
+                <s:CheckBox label="Conseils" id="task8CB"/>
+                <s:CheckBox label="Facture" id="task9CB"/>
+                <s:CheckBox label="Envoi du CR" id="task10CB"/>
+            </s:VGroup>
+            <s:VGroup width="33%" >
+                <s:Label text="Notes : "/>
+                <s:TextArea width="100%" height="100" id="notesTextArea"/>
+                <s:Spacer height="100%"/>
+                <s:HGroup width="100%">
+                    <components:ButtonIcon height="{ButtonSizeEnum.Small}" brand="{BrandColorEnum.Default}" toolTip="Tout cocher"
+                                           iconFont="{AwesomeUtils.fa_check_square_o}" click="checkAll(event)"/>
+                    <components:ButtonIcon height="{ButtonSizeEnum.Small}" brand="{BrandColorEnum.Default}" toolTip="Tout décocher"
+                                           iconFont="{AwesomeUtils.fa_square_o}" click="uncheckAll(event)"/>
+                </s:HGroup>
+
+            </s:VGroup>
+        </s:HGroup>
+        <s:Spacer height="10"/>
+        <s:Line width="100%">
+            <s:stroke>
+                <s:SolidColorStroke color="#000000" weight="1" caps="square" alpha="0.5" />
+            </s:stroke>
+        </s:Line>
+        <s:HGroup height="100%" width="100%" verticalAlign="middle">
+            <ns:ProgressBar
+                    id="progressBar"
+                    width="400"
+                    height="40"
+                    totalProgress="100"
+                    currentProgress="0"
+                    displayPercents="true"
+                    direction="left"/>
+            <s:Spacer width="100%"/>
+            <components:ButtonIcon label="Valider" height="{ButtonSizeEnum.Normal}" brand="{BrandColorEnum.Primary}"
+                                   iconFont="{AwesomeUtils.fa_check}" click="validate(event)"/>
+            <components:ButtonIcon label="Annuler" height="{ButtonSizeEnum.Normal}" brand="{BrandColorEnum.Default}"
+                                   iconFont="{AwesomeUtils.fa_close}" click="cancel(event)"/>
+
+        </s:HGroup>
+
+    </s:VGroup>
+
+
+</s:Panel>
